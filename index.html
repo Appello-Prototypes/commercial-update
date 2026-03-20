@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appello Sales Update — March 20, 2026</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181b23;
+    --surface-2: #1f2330;
+    --border: #2a2e3a;
+    --text: #e2e4e9;
+    --text-muted: #8b8fa3;
+    --accent: #3b82f6;
+    --accent-dim: rgba(59,130,246,.12);
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,.12);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,.12);
+    --amber: #f59e0b;
+    --amber-dim: rgba(245,158,11,.12);
+    --purple: #a855f7;
+    --purple-dim: rgba(168,85,247,.12);
+    --cyan: #06b6d4;
+    --cyan-dim: rgba(6,182,212,.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+  .header h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .header .meta { color: var(--text-muted); font-size: 14px; }
+  .header .meta span { display: inline-block; margin: 0 12px; }
+
+  /* Key Metrics Bar */
+  .metrics-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  .metric-card .value { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .metric-card .label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .metric-card.danger .value { color: var(--red); }
+  .metric-card.success .value { color: var(--green); }
+  .metric-card.warning .value { color: var(--amber); }
+
+  /* Alert Banner */
+  .alert {
+    background: var(--red-dim);
+    border: 1px solid rgba(239,68,68,.3);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+  .alert strong { color: var(--red); }
+  .alert.info { background: var(--accent-dim); border-color: rgba(59,130,246,.3); }
+  .alert.info strong { color: var(--accent); }
+
+  /* Sections */
+  .section { margin-bottom: 48px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header .num {
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 { font-size: 20px; font-weight: 700; }
+
+  /* Subsections */
+  h3 { font-size: 16px; font-weight: 600; color: var(--accent); margin: 28px 0 14px; }
+  h4 { font-size: 14px; font-weight: 600; margin: 20px 0 10px; color: var(--text); }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .card.stalled { border-left: 3px solid var(--red); }
+  .card.active { border-left: 3px solid var(--green); }
+  .card.pending { border-left: 3px solid var(--amber); }
+  .card.info { border-left: 3px solid var(--accent); }
+  .card.purple { border-left: 3px solid var(--purple); }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .card-subtitle { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+  .card ul { list-style: none; padding: 0; }
+  .card li { font-size: 13px; padding: 4px 0; padding-left: 16px; position: relative; color: var(--text); }
+  .card li::before { content: '•'; position: absolute; left: 0; color: var(--text-muted); }
+  .card p { font-size: 13px; margin-bottom: 8px; }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .badge.red { background: var(--red-dim); color: var(--red); }
+  .badge.green { background: var(--green-dim); color: var(--green); }
+  .badge.amber { background: var(--amber-dim); color: var(--amber); }
+  .badge.blue { background: var(--accent-dim); color: var(--accent); }
+  .badge.purple { background: var(--purple-dim); color: var(--purple); }
+  .badge.cyan { background: var(--cyan-dim); color: var(--cyan); }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+  /* Week dividers */
+  .week-header {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  /* Fathom link */
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Summary box */
+  .exec-summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+  .exec-summary p { margin-bottom: 12px; }
+
+  /* Risk list */
+  .risk-list { list-style: none; padding: 0; }
+  .risk-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .risk-num {
+    background: var(--red-dim);
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .risk-item.warning .risk-num { background: var(--amber-dim); color: var(--amber); }
+  .risk-item.info .risk-num { background: var(--accent-dim); color: var(--accent); }
+
+  /* Action items */
+  .action-group { margin-bottom: 20px; }
+  .action-group h4 { color: var(--accent); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13px;
+  }
+  .action-item .check {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Pattern analysis box */
+  .pattern-box {
+    background: var(--red-dim);
+    border: 1px solid rgba(239,68,68,.25);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  .pattern-box strong { color: var(--red); }
+
+  .insight-box {
+    background: var(--accent-dim);
+    border: 1px solid rgba(59,130,246,.25);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  .insight-box strong { color: var(--accent); }
+
+  .success-box {
+    background: var(--green-dim);
+    border: 1px solid rgba(34,197,94,.25);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  .success-box strong { color: var(--green); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding-top: 32px;
+    margin-top: 48px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* Nav */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,17,23,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    margin-bottom: 32px;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-link {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: all .15s;
+  }
+  .nav-link:hover { background: var(--surface); color: var(--text); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#summary" class="nav-link">Summary</a>
+    <a href="#pipeline" class="nav-link">Pipeline</a>
+    <a href="#stalled" class="nav-link">Stalled Deals</a>
+    <a href="#upcoming" class="nav-link">Upcoming</a>
+    <a href="#meetings" class="nav-link">Meeting Log</a>
+    <a href="#onboarding" class="nav-link">Onboarding</a>
+    <a href="#ai-lead-gen" class="nav-link">AI Lead Gen</a>
+    <a href="#customers" class="nav-link">Customer Health</a>
+    <a href="#hubspot" class="nav-link">HubSpot</a>
+    <a href="#lead-gen" class="nav-link">Lead Gen</a>
+    <a href="#competitive" class="nav-link">Competitive</a>
+    <a href="#partnerships" class="nav-link">Partnerships</a>
+    <a href="#calendar" class="nav-link">Calendar</a>
+    <a href="#risks" class="nav-link">Risks</a>
+    <a href="#actions" class="nav-link">Actions</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Appello Sales Update</h1>
+    <div class="meta">
+      <span>Friday, March 20, 2026</span>
+      <span>|</span>
+      <span>90-Day Review (Dec 20 2025 – Mar 20 2026)</span>
+      <span>|</span>
+      <span>Prepared by Corey Shelson</span>
+    </div>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="metrics-bar">
+    <div class="metric-card">
+      <div class="value">~30</div>
+      <div class="label">Total Customers</div>
+    </div>
+    <div class="metric-card success">
+      <div class="value">0%</div>
+      <div class="label">Churn Rate</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">$16-17k</div>
+      <div class="label">Avg ACV</div>
+    </div>
+    <div class="metric-card warning">
+      <div class="value">156d</div>
+      <div class="label">Avg Sales Cycle</div>
+    </div>
+    <div class="metric-card danger">
+      <div class="value">$140k+</div>
+      <div class="label">Stalled Pipeline</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">9</div>
+      <div class="label">Active Onboardings</div>
+    </div>
+  </div>
+
+  <!-- Critical Alert -->
+  <div class="alert" id="summary">
+    <strong>CRITICAL UPDATE:</strong> The two large opportunities reported at the March 4 board meeting — Taurus (~$45k) and ProElectric (~$50k) — have both <strong>stalled hard</strong>. Both prospects refused the integration cost-share model. Combined with St. Clair Mechanical (low close probability), approximately <strong>$140k+ in enterprise pipeline is effectively dead</strong>. Near-term close targets shift to mid-market deals: RF Contracting, EECF, Lanham, and Tear Systems (~$12-18k each).
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="exec-summary">
+    <p>The past 90 days have been a period of <strong>heavy onboarding execution</strong> with <strong>limited new deal closures</strong>. Two large onboarding customers launched in February (Type 5 at $37k ARR, Ontario Insulation at $12k ARR), but zero new deals were closed in February.</p>
+    <p>March has seen a significant ramp-up in demo activity with <strong>6 new demos completed</strong> and <strong>8+ demos/pricing discussions scheduled</strong> in the next 12 days. The AI in Construction presentation is emerging as a powerful new lead-generation channel, with MCAO confirming an April 16 webinar to 300 mechanical contractor members.</p>
+    <p style="margin-bottom:0;">The pipeline is rebuilding momentum after a slow February, but realistic close targets are now concentrated in the $12-18k ACV mid-market segment.</p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 1: PIPELINE -->
+  <!-- ================================================================== -->
+  <div class="section" id="pipeline">
+    <div class="section-header">
+      <span class="num">1</span>
+      <h2>Close Expectations &amp; Pipeline Assessment</h2>
+    </div>
+
+    <h3>Tier 1 — Active Pricing / Contract Discussions</h3>
+
+    <div class="card active">
+      <div class="card-title">RF Contracting <span class="badge green">Medium-High</span> <span class="badge blue">~$15k ACV</span></div>
+      <div class="card-subtitle">Pricing Discussion — Mar 25 &bull; Adam &amp; Amanda Carpenter</div>
+      <ul>
+        <li>Both key decision-makers attended the Mar 13 demo (63 min)</li>
+        <li>Adam specifically interested in AI capabilities — this is what got him engaged</li>
+        <li>Moving to pricing discussion in 12 days is a healthy pace</li>
+        <li>Corey's assessment: "Good opportunity here. Adam seems genuinely interested."</li>
+      </ul>
+    </div>
+
+    <div class="card pending">
+      <div class="card-title">EECF <span class="badge amber">Medium</span> <span class="badge blue">~$12-18k ACV</span></div>
+      <div class="card-subtitle">Pricing Discussion — Mar 20 (today) &bull; J. Breddy</div>
+      <ul>
+        <li>~1,800 estimates/year via manual multi-step process — high AI value proposition</li>
+        <li>Shifting from 75-80% residential to 60% commercial</li>
+        <li><strong>Blocker:</strong> Pre-existing Savalgo contract, but open to alternatives</li>
+        <li>Two engagement options: full platform or AI consulting wedge</li>
+        <li>Eligible for 20% first-50-customer + 10% LDCA member discount</li>
+      </ul>
+    </div>
+
+    <div class="card pending">
+      <div class="card-title">Tear Systems Mechanical <span class="badge amber">Medium</span> <span class="badge blue">$12k ACV</span></div>
+      <div class="card-subtitle">Contract Sent — Mar 26 follow-up</div>
+      <ul><li>HubSpot shows contract sent stage. Follow-up scheduled.</li></ul>
+    </div>
+
+    <div class="card pending">
+      <div class="card-title">Lanham Insulation <span class="badge amber">Medium</span> <span class="badge blue">$15k ACV</span></div>
+      <div class="card-subtitle">Decision Maker Bought In — Follow-up needed</div>
+      <ul>
+        <li>43-year-old company, 40-45 employees, non-unionized industrial insulation</li>
+        <li>HubSpot last modified Mar 12, 2026</li>
+      </ul>
+    </div>
+
+    <div class="card stalled">
+      <div class="card-title">St. Clair Mechanical <span class="badge red">Low</span> <span class="badge blue">~$25k+ ACV</span></div>
+      <div class="card-subtitle">Pricing Discussion — Mar 26 &bull; K. Murdock (Project Controls)</div>
+      <ul>
+        <li>5 separate entities — significant onboarding complexity</li>
+        <li><strong>Not on QBO</strong> — removes Appello's strongest differentiator</li>
+        <li>Functionality they need (multi-entity management) is what Acumatica does very well</li>
+        <li>Competitive scorecard sent against 8 alternatives</li>
+        <li>Giving us the opportunity to present pricing, but realistic close chance is weak</li>
+      </ul>
+    </div>
+
+    <h3>Tier 2 — Demo Completed, Advancing</h3>
+
+    <div class="card active">
+      <div class="card-title">Modern Niagara <span class="badge green">High Value</span> <span class="badge blue">~$30-50k ACV</span></div>
+      <div class="card-subtitle">Full Demo — Mar 31 &bull; Kyle Wilson + Amr (Dir. of Ops)</div>
+      <ul>
+        <li>Energy Solutions group (owner-direct retrofit business development)</li>
+        <li>BCTS acquisition creating natural evaluation window to replace underutilized Procore</li>
+        <li>Tech stack: NetSuite, FieldPoint, Procore</li>
+        <li>Land-and-expand play within a much larger organization</li>
+        <li><strong>Caveat:</strong> Will face same NetSuite integration question that stalled Taurus</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">American Rentals <span class="badge blue">Developing</span></div>
+      <div class="card-subtitle">Follow-up — Apr 14</div>
+      <ul><li>Initial demo + reverse demo completed. Longer-dated opportunity.</li></ul>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 2: STALLED DEALS -->
+  <!-- ================================================================== -->
+  <div class="section" id="stalled">
+    <div class="section-header">
+      <span class="num">2</span>
+      <h2>Stalled / Effectively Dead — Enterprise Opportunities</h2>
+    </div>
+
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">These deals represent a combined ~$90-100k in potential ARR that has gone cold. Both share a nearly identical pattern: large companies (~200 workers), significant existing tech spend, genuine desire to streamline — but unwilling to absorb the integration cost-share.</p>
+
+    <div class="card stalled">
+      <div class="card-title">Taurus Insulation (TX) <span class="badge red">Stalled</span> <span class="badge blue">~$40-50k/yr ARR</span></div>
+      <div class="card-subtitle">~200 employees &bull; Currently $138k/yr on NetSuite &bull; Grew $2M → $18M revenue</div>
+      <ul>
+        <li><strong>What happened:</strong> Appello proposed subscription (~$45k/yr) + joint $40k cost-share ($20k each) for NetSuite integration</li>
+        <li>Taurus balked at the integration cost — combined with $17k onboarding, total first-year outlay was ~$80k+</li>
+        <li><strong>Root cause:</strong> Wanted a turnkey solution at subscription cost, not a co-development partnership</li>
+        <li>Deal has stalled hard. No meaningful engagement. Should be moved to long-term nurture or closed-lost.</li>
+      </ul>
+    </div>
+
+    <div class="card stalled">
+      <div class="card-title">ProElectric (London, ON) <span class="badge red">Stalled</span> <span class="badge blue">~$40-50k/yr ARR</span></div>
+      <div class="card-subtitle">~175 employees &bull; Half HVAC / Half Electrical &bull; Currently on Vista by Viewpoint</div>
+      <ul>
+        <li><strong>What happened:</strong> After two enthusiastic on-site meetings, Appello proposed subscription (~$50k/yr) + joint cost-share for Vista integration</li>
+        <li>Integration bill (~$40k total, 50/50 split) + $17k onboarding left a bad taste</li>
+        <li><strong>Root cause:</strong> Same as Taurus — excited about platform, unwilling to pay for integration development</li>
+        <li>If Appello builds Vista integration independently, ProElectric could re-engage — but speculative</li>
+      </ul>
+    </div>
+
+    <div class="pattern-box">
+      <strong>Pattern Analysis:</strong> Both Taurus and ProElectric expose a structural challenge in Appello's upmarket strategy. Companies with 200+ workers on enterprise ERPs (NetSuite, Vista) represent $40-50k ACV opportunities, but the integration cost-share model is not landing. These prospects want to see the integration already built before committing, not co-fund its development. This reinforces the ICP sweet spot of <strong>QBO-based companies where the native integration already exists</strong>.
+    </div>
+
+    <h3 style="margin-top:32px;">Lost / Stalled Deal Pattern</h3>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr><th>Deal</th><th>Potential ACV</th><th>Workers</th><th>Blocker</th><th>Accounting System</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Taurus Insulation</td><td>~$45k</td><td>~200</td><td>Refused $20k NetSuite integration cost-share</td><td>NetSuite</td></tr>
+          <tr><td>ProElectric</td><td>~$50k</td><td>~175</td><td>Refused $20k Vista integration cost-share</td><td>Vista by Viewpoint</td></tr>
+          <tr><td>St. Clair Mechanical</td><td>~$25k+</td><td>Large</td><td>5 entities, Acumatica handles complexity better</td><td>Not QBO</td></tr>
+          <tr><td>CIS Enviro</td><td>~$12k</td><td>Small</td><td>Price sensitivity, Sage 50 (no API), owner inaccessible</td><td>Sage 50</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight-box">
+      <strong>Strategic Implication:</strong> Until Appello has NetSuite and Vista integrations built and battle-tested, these enterprise ERP segments represent ~$140k+ in stalled pipeline that is unlikely to convert. The ICP sweet spot remains firmly in the <strong>15-50 worker, QBO-based</strong> segment where the native integration exists and onboarding complexity is manageable.
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 3: UPCOMING PIPELINE -->
+  <!-- ================================================================== -->
+  <div class="section" id="upcoming">
+    <div class="section-header">
+      <span class="num">3</span>
+      <h2>Upcoming Demos &amp; Meetings (Next 12 Days)</h2>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Company</th><th>Type</th><th>Contact(s)</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mar 24</td><td>SCT Mechanical</td><td><span class="badge cyan">Demo</span></td><td>TBD</td><td>New prospect</td></tr>
+          <tr><td>Mar 25</td><td>RF Contracting</td><td><span class="badge amber">Pricing</span></td><td>Adam Carpenter</td><td>Strong candidate</td></tr>
+          <tr><td>Mar 25</td><td>White and Greer</td><td><span class="badge cyan">Demo</span></td><td>TBD</td><td>First demo — invited Mar 18</td></tr>
+          <tr><td>Mar 26</td><td>Tear Systems</td><td><span class="badge blue">Follow-up</span></td><td>TBD</td><td>Contract sent stage</td></tr>
+          <tr><td>Mar 26</td><td>Trinity Energy Group</td><td><span class="badge cyan">Demo</span></td><td>Peter Douthwright, Nevan White, Jennifer MacKinnon</td><td>3 confirmed attendees</td></tr>
+          <tr><td>Mar 26</td><td>St. Clair Mechanical</td><td><span class="badge amber">Pricing</span></td><td>K. Murdock</td><td>Low probability per Corey</td></tr>
+          <tr><td>Mar 30</td><td>R&amp;R Mechanical Group</td><td><span class="badge cyan">Demo</span></td><td>Jacob Bretz, Bailey Zehr</td><td>Both accepted invite</td></tr>
+          <tr><td>Mar 31</td><td>Modern Niagara</td><td><span class="badge green">Full Demo</span></td><td>Kyle Wilson + Amr (Dir. of Ops)</td><td>Key decision-maker attending</td></tr>
+          <tr><td>Apr 2</td><td>Furoy Insulation</td><td><span class="badge cyan">Demo</span></td><td>TBD</td><td>New prospect</td></tr>
+          <tr><td>Apr 14</td><td>American Rentals</td><td><span class="badge blue">Follow-up</span></td><td>TBD</td><td>Developing opportunity</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 4: FATHOM MEETING LOG -->
+  <!-- ================================================================== -->
+  <div class="section" id="meetings">
+    <div class="section-header">
+      <span class="num">4</span>
+      <h2>Fathom Meeting Log (Reverse Chronological)</h2>
+    </div>
+
+    <div class="week-header">Week of March 17–20, 2026</div>
+
+    <div class="card active">
+      <div class="card-title">Mar 19 — Appello Demo: Modern Niagara <span class="badge cyan">Demo</span></div>
+      <div class="card-subtitle">~20 min &bull; Corey Shelson, Kyle Wilson (Modern Niagara), Nathan Friesen &bull; <a href="https://fathom.video/share/CpLvqEWzMS8zWhnhNzjkzF4S1NAYCYCK">Recording</a></div>
+      <ul>
+        <li>Kyle is in sales management for Modern Niagara's Energy Solutions group</li>
+        <li>Tech stack: NetSuite (finance), FieldPoint (field service), Procore (underutilized)</li>
+        <li>BCTS acquisition creating evaluation window to replace Procore</li>
+        <li>Kyle will bring Amr (Director of Operations) to full demo</li>
+        <li><strong>Full demo scheduled: March 31, 11:00 AM – 12:00 PM</strong></li>
+      </ul>
+    </div>
+
+    <div class="card purple">
+      <div class="card-title">Mar 18 — AI Training / MCAO Partnership <span class="badge purple">Partnership</span></div>
+      <div class="card-subtitle">~30 min &bull; Corey Shelson, Dylan Knight (MCAO), Nathan Friesen &bull; <a href="https://fathom.video/share/yq2BN4AhhJbsUWmSc-sHPWvEzdYnvfxX">Recording</a></div>
+      <ul>
+        <li><strong>AI Webinar confirmed: April 16, 2026 at 12:00 PM</strong></li>
+        <li>MCAO has ~300 mechanical contractor members — concentrated ICP audience</li>
+        <li>Partnership model: MCAO members receive permanent 10% discount</li>
+        <li>Dylan enthusiastic; sees genuine value for members</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 18 — Tight 5 Onboarding (Session 4) <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~25 min &bull; Ian Haase, Corey, Travis + 11 Tight 5 members &bull; <a href="https://fathom.video/share/3figNpWmPHHrCRLhniipaCibxyDmWM-R">Recording</a></div>
+      <ul><li>$37k ARR customer. 11 external participants — strong organizational buy-in.</li></ul>
+    </div>
+
+    <div class="card active">
+      <div class="card-title">Mar 17 — EECF x Appello Demo <span class="badge cyan">Demo</span></div>
+      <div class="card-subtitle">~57 min &bull; Corey Shelson, Nathan Friesen, J. Breddy (EECF) &bull; <a href="https://fathom.video/share/sBG5Fkyph5mDARay2xDfpQH2W8byd5Rs">Recording</a></div>
+      <ul>
+        <li>~1,800 estimates/yr via manual process (RFQ → Excel → Word → PDF)</li>
+        <li>Shifting from 75-80% residential to 60% commercial</li>
+        <li>Blocker: Pre-existing Savalgo contract — but open to alternatives</li>
+        <li>Two engagement options: full platform or AI consulting wedge</li>
+        <li><strong>Pricing follow-up: March 20 (today)</strong></li>
+      </ul>
+    </div>
+
+    <div class="week-header">Week of March 10–14, 2026</div>
+
+    <div class="card active">
+      <div class="card-title">Mar 13 — Appello Demo: RF Contracting <span class="badge cyan">Demo</span></div>
+      <div class="card-subtitle">~63 min &bull; Corey, Adam &amp; Amanda Carpenter (RF Contracting), Nathan &bull; <a href="https://fathom.video/share/27j1x3g5wujTy4ycMCxP7nzzg7xkWW6X">Recording</a></div>
+      <ul>
+        <li>Both key decision-makers attended</li>
+        <li>Adam specifically interested in AI capabilities</li>
+        <li><strong>Pricing discussion booked: March 25</strong></li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 13 — Tight 5: Payroll Refresher <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~46 min &bull; Travis McKenna, Kaili &amp; Skye (Tight 5)</div>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 12 — Thomas Kanata Onboarding <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~28 min &bull; Ian, Corey, Travis + 9 Thomas team members</div>
+      <ul><li>Large strategic customer. 9 external attendees — strong commitment.</li></ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 12 — Drawing Markups with Dan @ Thermogenix <span class="badge purple">Innovation</span></div>
+      <div class="card-subtitle">~8 min &bull; Corey Shelson, Daniel Hunt (Thermogenix) &bull; <a href="https://fathom.video/share/GQUS-8-xbKBFHpNbaiSYnARsQ7ejCyeS">Recording</a></div>
+      <ul>
+        <li>Remarkable tablet → Appello drawing markup automation via MCP + AI</li>
+        <li>Dan pushing company to buy tablets for this use case</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 11 — Rival Insulation Onboarding <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~30 min &bull; Corey, Ian + 10 Rival team members &bull; <a href="https://fathom.video/share/BRxRaz9EgCTGgGxmMBgyUzTdhRHVZnkk">Recording</a></div>
+      <ul>
+        <li>Largest customer ($35-40k ARR). 10+ attendees.</li>
+        <li><span class="badge amber" style="font-size:10px;">Watch</span> Heidi Donovan declined a subsequent session (Mar 18)</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 11 — Tight 5 Onboarding (Session 3) <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~12 min &bull; Ian, Corey, Travis + 11 Tight 5 members</div>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 10 — RA Barnes Onboarding <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~63 min &bull; Ian, Travis, Louise Metcalfe, Katharine Barnes</div>
+      <ul><li>Smoothest onboarding to date — fully operational in 2 weeks. Moving to estimates/job costing.</li></ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 10 — Acuratus Support Call <span class="badge amber">Support</span></div>
+      <div class="card-subtitle">~21 min &bull; Ian Haase, Crystal Schneider (Acuratus)</div>
+      <ul><li>Waiting on RFI management feature (expected April).</li></ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 10 — Ontario Insulation Onboarding <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~20 min &bull; Ian, Corey + Ontario Insulation team</div>
+      <ul><li>Launched Feb 2026 at $12k ARR. Weekly cadence.</li></ul>
+    </div>
+
+    <div class="week-header">Week of March 3–9, 2026</div>
+
+    <div class="card purple">
+      <div class="card-title">Mar 9 — Appello Demo: Software Finder <span class="badge purple">Partnership</span></div>
+      <div class="card-subtitle">~22 min &bull; Corey Shelson, Allan Page (Software Finder)</div>
+      <ul><li>Channel partnership exploration — software marketplace referral model.</li></ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 9 — Isolation Elite Onboarding <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~20 min &bull; Ian, Filip + 4 Isolation Elite members</div>
+      <ul><li>Quebec-based insulation company. Onboarding in progress.</li></ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 9 — Executive L10 Meeting <span class="badge blue">Internal</span></div>
+      <div class="card-subtitle">~83 min &bull; Corey, Ian, Chris Vachon, Travis</div>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 5 — Thomas Kanata Onboarding <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~30 min &bull; Ian, Corey, Travis + 8 Thomas team members</div>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 5 — Collins Construction SOV Training <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~36 min &bull; Ian, Travis + 3 Collins members</div>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 5 — Clement Construction Onboarding <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~27 min &bull; Ian, Travis + 7 Clement members + Strata Accounting</div>
+      <ul><li>Bringing their accountant into onboarding — strong commitment signal.</li></ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 4 — Appello Board Meeting <span class="badge blue">Board</span></div>
+      <div class="card-subtitle">~58 min &bull; Corey, Ian, Chris + Board (Brice, Bobby, David) &bull; <a href="https://fathom.video/share/uMXAry4PnsVdrm9ynkk9yod66L2vYMGh">Recording</a></div>
+      <ul>
+        <li>February: No new deals closed</li>
+        <li>Launches: Type 5 ($37k ARR) + Ontario Insulation ($12k ARR)</li>
+        <li>4 remaining onboarding: Vortex, Bison IBI, Acuratus, DM Industries</li>
+        <li>Pipeline (now outdated): Taurus + ProElectric → <span class="badge red" style="font-size:10px;">Now Stalled</span></li>
+        <li>Strategic AI Initiative (Agent C2) prioritized</li>
+        <li>QBO marketplace: Pending security audit</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 4 — Tight 5 Onboarding (Session 2) <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~18 min &bull; Ian, Corey, Travis + 11 Tight 5 members</div>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 3 — Ontario Insulation Onboarding <span class="badge blue">Onboarding</span></div>
+      <div class="card-subtitle">~15 min &bull; Ian, Corey + 4 Ontario Insulation members</div>
+    </div>
+
+    <div class="card info">
+      <div class="card-title">Mar 3 — Thermogenix QBO Setup <span class="badge amber">Support</span></div>
+      <div class="card-subtitle">~97 min &bull; Ian, Travis + Thermogenix accounting</div>
+      <ul><li>Extended session to configure QBO integration. Creates stickiness.</li></ul>
+    </div>
+
+    <div class="week-header">February 2026</div>
+
+    <div class="card stalled">
+      <div class="card-title">Feb 4 — Appello Demo: St. Clair Mechanical <span class="badge cyan">Demo</span> <span class="badge red">Low Prob</span></div>
+      <div class="card-subtitle">Extended session &bull; Corey Shelson, K. Murdock (St. Clair Mechanical)</div>
+      <ul>
+        <li>Husband-and-wife-founded company (2001), oil and gas pipeline</li>
+        <li><strong>5 separate entities</strong> — significant onboarding complexity</li>
+        <li>Not on QBO — removes Appello's key differentiator</li>
+        <li>Multi-entity management is what Acumatica does natively</li>
+        <li>Competitive scorecard sent against 8 alternatives</li>
+        <li>Pricing discussion Mar 26, but realistic close chance is weak</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 5: ONBOARDING -->
+  <!-- ================================================================== -->
+  <div class="section" id="onboarding">
+    <div class="section-header">
+      <span class="num">5</span>
+      <h2>Onboarding Activity (9 Active — Record Level)</h2>
+    </div>
+
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">The onboarding team is managing 9 active customer onboardings simultaneously. This is both a sign of sales success and a capacity constraint that limits how much time leadership can allocate to closing new deals.</p>
+
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr><th>Customer</th><th>ARR</th><th>Status</th><th>Sessions (90 Days)</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Tight 5</strong></td><td>$37k</td><td><span class="badge green">Active</span></td><td>5 sessions</td><td>11 attendees per session. Payroll refresher completed.</td></tr>
+          <tr><td><strong>Ontario Insulation</strong></td><td>$12k</td><td><span class="badge green">Launched</span></td><td>3+ sessions</td><td>Weekly cadence. Launched Feb 2026.</td></tr>
+          <tr><td><strong>Thomas Kanata</strong></td><td>Large</td><td><span class="badge green">Active</span></td><td>2 sessions</td><td>8-9 external attendees. Extended timeline.</td></tr>
+          <tr><td><strong>Rival Insulation</strong></td><td>$35-40k</td><td><span class="badge amber">Watch</span></td><td>1 session</td><td>Largest customer. Heidi Donovan declined follow-up.</td></tr>
+          <tr><td><strong>RA Barnes Electric</strong></td><td>~$10-15k</td><td><span class="badge green">Active</span></td><td>1 session</td><td>Smoothest onboarding ever. Estimates/job costing next.</td></tr>
+          <tr><td><strong>Isolation Elite</strong></td><td>TBD</td><td><span class="badge green">Active</span></td><td>1 session</td><td>Quebec-based insulation.</td></tr>
+          <tr><td><strong>Clement Construction</strong></td><td>TBD</td><td><span class="badge green">Active</span></td><td>1 session</td><td>Accountant (Strata) participating — strong signal.</td></tr>
+          <tr><td><strong>Collins Construction</strong></td><td>TBD</td><td><span class="badge green">Active</span></td><td>1 SOV training</td><td>Schedule of Values training.</td></tr>
+          <tr><td><strong>Vortex</strong></td><td>TBD</td><td><span class="badge cyan">Launching Soon</span></td><td>—</td><td>Launch event planned.</td></tr>
+          <tr><td><strong>Bison IBI</strong></td><td>TBD</td><td><span class="badge cyan">Launching Soon</span></td><td>—</td><td>Imminent per board meeting.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Pending Onboarding (On Hold)</h4>
+    <div class="card pending">
+      <ul>
+        <li><strong>Acuratus:</strong> Waiting on RFI management feature (expected April)</li>
+        <li><strong>DM Industries:</strong> Partner illness — holding pattern</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 6: AI LEAD GEN -->
+  <!-- ================================================================== -->
+  <div class="section" id="ai-lead-gen">
+    <div class="section-header">
+      <span class="num">6</span>
+      <h2>AI in Construction — Strategic Lead Generation</h2>
+    </div>
+
+    <div class="success-box">
+      <strong>Breakthrough channel:</strong> The AI in Construction presentation is becoming one of the most promising lead-generation levers. MCAO has confirmed a session for <strong>April 16</strong> with a <strong>300-member</strong> mechanical contractor audience — 10x the LDCA presentation that already converted into qualified demos.
+    </div>
+
+    <div style="margin-top:20px;">
+      <div class="card active">
+        <div class="card-title">Why It Matters</div>
+        <ul>
+          <li><strong>Channel access:</strong> One presentation creates warm introductions across a concentrated ICP audience</li>
+          <li><strong>Proven conversion:</strong> LDCA presentation to 30 contractors → highly qualified demos</li>
+          <li><strong>Scalable:</strong> MCAO's 300 members could generate 10-20+ qualified demos from a single event</li>
+          <li><strong>Positioning:</strong> Establishes Appello as a forward-thinking, AI-native construction platform</li>
+          <li><strong>Repeatable:</strong> 80+ targeted associations identified for outreach</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="table-card" style="margin-top:16px;">
+      <table>
+        <thead><tr><th>Date</th><th>Association</th><th>Audience</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Apr 16, 2026</td><td>MCAO (Mechanical Contractors Assoc. of Ontario)</td><td>~300 members</td><td><span class="badge green">Confirmed</span></td></tr>
+          <tr><td>TBD</td><td>Additional associations from 80+ target list</td><td>Varies</td><td><span class="badge blue">Planning</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 7: CUSTOMER HEALTH -->
+  <!-- ================================================================== -->
+  <div class="section" id="customers">
+    <div class="section-header">
+      <span class="num">7</span>
+      <h2>Customer Health &amp; Existing Revenue</h2>
+    </div>
+
+    <div class="metrics-bar" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="metric-card">
+        <div class="value">$400-450k</div>
+        <div class="label">Signed ARR (est.)</div>
+      </div>
+      <div class="metric-card success">
+        <div class="value">0%</div>
+        <div class="label">Churn Rate</div>
+      </div>
+      <div class="metric-card">
+        <div class="value">$1M</div>
+        <div class="label">ARR Goal (Sep 2026)</div>
+      </div>
+      <div class="metric-card warning">
+        <div class="value">$550-600k</div>
+        <div class="label">Gap to Goal</div>
+      </div>
+    </div>
+
+    <h3>Active Customer Engagement (Past 90 Days)</h3>
+    <div class="card info">
+      <ul>
+        <li><strong>Thermogenix:</strong> QBO setup (97 min, Mar 3) + drawing markup innovation (Mar 12). High engagement.</li>
+        <li><strong>Acuratus:</strong> Support call with Ian (Mar 10). Waiting on RFI management feature.</li>
+        <li><strong>Pic River:</strong> Sam Kelly SOV setup with Ian (Mar 3).</li>
+        <li><strong>Fisher Corp:</strong> Shawn Fitzsimmons quick call with Ian (Mar 10).</li>
+      </ul>
+    </div>
+
+    <div class="insight-box">
+      <strong>Expansion revenue:</strong> 6-7 existing customers adopted new modules in the past year, increasing their individual ARR. Tracking expansion revenue is now part of the financial model.
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 8: HUBSPOT -->
+  <!-- ================================================================== -->
+  <div class="section" id="hubspot">
+    <div class="section-header">
+      <span class="num">8</span>
+      <h2>HubSpot Deal Pipeline Snapshot</h2>
+    </div>
+
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr><th>Deal</th><th>Amount</th><th>Stage</th><th>Last Modified</th><th>Pipeline</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lanham Insulation Inc</td><td>$15,000</td><td><span class="badge green">Decision Maker Bought In</span></td><td>Mar 12, 2026</td><td>Default</td></tr>
+          <tr><td>Tear Systems Mechanical</td><td>$12,000</td><td><span class="badge amber">Contract Sent</span></td><td>Jan 7, 2026</td><td>Default</td></tr>
+          <tr><td>Advanced Technical Insulation</td><td>$0</td><td><span class="badge blue">Qualified to Buy</span></td><td>Dec 22, 2025</td><td>Default</td></tr>
+          <tr><td>Barrett Mechanical</td><td>—</td><td><span class="badge blue">Contacted</span></td><td>Mar 4, 2026</td><td>Pipeline 2</td></tr>
+          <tr><td>Hi-Tek Drywall &amp; Acoustics</td><td>$0</td><td><span class="badge cyan">Demo Complete</span></td><td>Mar 9, 2026</td><td>Pipeline 2</td></tr>
+          <tr><td>Tornado Insulation</td><td>$0</td><td><span class="badge cyan">Demo Complete</span></td><td>Mar 9, 2026</td><td>Pipeline 2</td></tr>
+          <tr><td>PTN Electrical Solutions</td><td>$0</td><td><span class="badge red">Closed Lost</span></td><td>Feb 10, 2026</td><td>Pipeline 2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Note: Many Pipeline 2 deals from the Nov 2025 import show $0 amounts and need data cleanup.</p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 9: LEAD GEN -->
+  <!-- ================================================================== -->
+  <div class="section" id="lead-gen">
+    <div class="section-header">
+      <span class="num">9</span>
+      <h2>Lead Generation Performance</h2>
+    </div>
+
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Channel</th><th>Spend</th><th>Result</th><th>Cost/Demo</th><th>Cost/Deal</th></tr></thead>
+        <tbody>
+          <tr><td>Events (conferences, golf)</td><td>$57k total</td><td>13 customer launches</td><td>$1,400</td><td>$4,000</td></tr>
+          <tr><td>Chocolate Campaign (ABM)</td><td>~$5k/mo</td><td>23 demos</td><td>$848</td><td>TBD</td></tr>
+          <tr><td>AI Presentations</td><td>Minimal</td><td>Converting to demos</td><td>~$0</td><td>TBD</td></tr>
+          <tr><td>Referrals</td><td>$0</td><td>2 of last 3 customers</td><td>$0</td><td>$0</td></tr>
+          <tr><td>Nathan's outbound</td><td>~$8.7k/8 weeks</td><td>3-5 demos/week</td><td>~$50</td><td>TBD</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Sales Process</h3>
+    <div class="card info">
+      <ul>
+        <li><strong>4-stage funnel:</strong> Demo booking (Nathan) → Sales closing (Corey) → Onboarding (Ian/Travis) → Customer success</li>
+        <li>Nathan's demo quality improving — pipeline maturing</li>
+        <li>Pre-demo questionnaire + personalized video to boost attendance</li>
+        <li>7-day pricing expiry on quotes to create urgency</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 10: COMPETITIVE -->
+  <!-- ================================================================== -->
+  <div class="section" id="competitive">
+    <div class="section-header">
+      <span class="num">10</span>
+      <h2>Competitive &amp; Market Intelligence</h2>
+    </div>
+
+    <h3>ICP Refinement</h3>
+    <div class="card info">
+      <ul>
+        <li><strong>Sweet spot:</strong> Owner-operated companies, 15-50 field workers, complex operations, QBO users</li>
+        <li><strong>Average deal:</strong> ~$15-17k ACV with ~4-month sales cycle</li>
+        <li><strong>Avoid:</strong> Enterprise deals (5,000+ people) — long cycles, high resource drain, startup risk perception</li>
+      </ul>
+    </div>
+
+    <h3>QBO as Strategic Fulcrum</h3>
+    <div class="card active">
+      <ul>
+        <li>Native QBO integration is a powerful differentiator</li>
+        <li>Strategy: Target QBO users in construction + partner with Intuit for customer access</li>
+        <li>Status: <strong>Pending security audit</strong> — final step to Intuit marketplace</li>
+        <li>Actively driving QBO migrations from Sage 50 and other legacy platforms</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 11: PARTNERSHIPS -->
+  <!-- ================================================================== -->
+  <div class="section" id="partnerships">
+    <div class="section-header">
+      <span class="num">11</span>
+      <h2>Partnership &amp; Channel Activity</h2>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Partner / Channel</th><th>Type</th><th>Status</th><th>Potential Impact</th></tr></thead>
+        <tbody>
+          <tr><td>MCAO</td><td>Association webinar</td><td><span class="badge green">Confirmed Apr 16</span></td><td>300-member audience</td></tr>
+          <tr><td>LDCA</td><td>Association presentation</td><td><span class="badge green">Completed</span></td><td>Converted into qualified demos</td></tr>
+          <tr><td>Software Finder</td><td>Software marketplace</td><td><span class="badge blue">Demo completed Mar 9</span></td><td>Passive inbound lead channel</td></tr>
+          <tr><td>Intuit / QBO</td><td>App marketplace</td><td><span class="badge amber">Pending Security Audit</span></td><td>Access to QBO construction customers</td></tr>
+          <tr><td>Curtis / Alan (SW Sales)</td><td>Referral partners</td><td><span class="badge green">Active</span></td><td>$250/demo, $2,500+/deal</td></tr>
+          <tr><td>80+ Associations</td><td>Association outreach</td><td><span class="badge blue">Building List</span></td><td>Repeatable lead-gen motion</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 12: CALENDAR -->
+  <!-- ================================================================== -->
+  <div class="section" id="calendar">
+    <div class="section-header">
+      <span class="num">12</span>
+      <h2>Calendar — Next 30 Days</h2>
+    </div>
+
+    <h3>Demos &amp; Sales Meetings</h3>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Date</th><th>Company</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>Mar 20</td><td>EECF</td><td><span class="badge amber">Pricing</span></td></tr>
+          <tr><td>Mar 24</td><td>SCT Mechanical</td><td><span class="badge cyan">Demo</span></td></tr>
+          <tr><td>Mar 25</td><td>RF Contracting</td><td><span class="badge amber">Pricing</span></td></tr>
+          <tr><td>Mar 25</td><td>White and Greer</td><td><span class="badge cyan">Demo</span></td></tr>
+          <tr><td>Mar 26</td><td>Tear Systems</td><td><span class="badge blue">Follow-up</span></td></tr>
+          <tr><td>Mar 26</td><td>Trinity Energy Group</td><td><span class="badge cyan">Demo</span></td></tr>
+          <tr><td>Mar 26</td><td>St. Clair Mechanical</td><td><span class="badge amber">Pricing</span></td></tr>
+          <tr><td>Mar 30</td><td>R&amp;R Mechanical Group</td><td><span class="badge cyan">Demo</span></td></tr>
+          <tr><td>Mar 31</td><td>Modern Niagara</td><td><span class="badge green">Full Demo</span></td></tr>
+          <tr><td>Apr 2</td><td>Furoy Insulation</td><td><span class="badge cyan">Demo</span></td></tr>
+          <tr><td>Apr 14</td><td>American Rentals</td><td><span class="badge blue">Follow-up</span></td></tr>
+          <tr><td>Apr 16</td><td>MCAO</td><td><span class="badge purple">Lead Gen Event</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Onboarding Sessions (Recurring)</h3>
+    <div class="card info">
+      <ul>
+        <li>Tight 5 (weekly/bi-weekly)</li>
+        <li>Ontario Insulation (weekly)</li>
+        <li>Thomas Kanata (weekly)</li>
+        <li>Rival Insulation (as needed)</li>
+        <li>RA Barnes Electric (bi-weekly)</li>
+        <li>Vortex (launch event imminent)</li>
+        <li>Bison IBI (launch imminent)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 13: RISKS -->
+  <!-- ================================================================== -->
+  <div class="section" id="risks">
+    <div class="section-header">
+      <span class="num">13</span>
+      <h2>Risks &amp; Watchlist</h2>
+    </div>
+
+    <ol class="risk-list">
+      <li class="risk-item">
+        <span class="risk-num">1</span>
+        <div><strong>~$140k in stalled enterprise pipeline.</strong> Taurus (~$45k), ProElectric (~$50k), and St. Clair (~$25k+) represent the three largest opportunities and all are effectively dead or extremely low probability. The integration cost-share model is not working. This is the single biggest pipeline risk.</div>
+      </li>
+      <li class="risk-item">
+        <span class="risk-num">2</span>
+        <div><strong>Onboarding capacity constraint.</strong> 9 active onboardings simultaneously is stretching Ian, Corey, and Travis thin. This limits time for sales activities and new deal closure.</div>
+      </li>
+      <li class="risk-item">
+        <span class="risk-num">3</span>
+        <div><strong>February zero-close month.</strong> No new deals closed in February. March needs at least 2 closures to meet projections. With Taurus/ProElectric/St. Clair unlikely, close targets shift entirely to RF Contracting, EECF, Lanham, and Tear Systems — all $12-18k range.</div>
+      </li>
+      <li class="risk-item">
+        <span class="risk-num">4</span>
+        <div><strong>Enterprise ERP integration gap.</strong> Without pre-built NetSuite and Vista integrations, Appello cannot credibly compete for 150+ worker companies on enterprise accounting. Limits TAM to QBO-based companies.</div>
+      </li>
+      <li class="risk-item warning">
+        <span class="risk-num">5</span>
+        <div><strong>Rival engagement.</strong> Heidi Donovan declining an onboarding session (Mar 18). Monitor for broader disengagement. Rival is the largest customer at $35-40k ARR.</div>
+      </li>
+      <li class="risk-item warning">
+        <span class="risk-num">6</span>
+        <div><strong>DM Industries hold.</strong> Partner illness creating indefinite delay on an already-signed customer.</div>
+      </li>
+      <li class="risk-item info">
+        <span class="risk-num">7</span>
+        <div><strong>Acuratus dependency.</strong> Deal contingent on RFI management feature delivery (April target). Feature delay = deal delay.</div>
+      </li>
+      <li class="risk-item info">
+        <span class="risk-num">8</span>
+        <div><strong>HubSpot data quality.</strong> Many deals show $0 amounts and stale data. Pipeline visibility could be improved with a data cleanup.</div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 14: ACTIONS -->
+  <!-- ================================================================== -->
+  <div class="section" id="actions">
+    <div class="section-header">
+      <span class="num">14</span>
+      <h2>Recommendations &amp; Action Items</h2>
+    </div>
+
+    <div class="action-group">
+      <h4>Immediate (This Week)</h4>
+      <div class="action-item"><span class="check"></span><div><strong>EECF:</strong> Execute pricing discussion today (Mar 20). Present both full-platform and AI-consulting-only options.</div></div>
+      <div class="action-item"><span class="check"></span><div><strong>Modern Niagara prep:</strong> Prepare tailored demo for Mar 31 highlighting NetSuite integration roadmap and BCTS acquisition fit.</div></div>
+      <div class="action-item"><span class="check"></span><div><strong>Trinity Energy Group prep:</strong> 3 confirmed attendees for Mar 26 — prepare for multi-stakeholder demo.</div></div>
+      <div class="action-item"><span class="check"></span><div><strong>Rival check-in:</strong> Proactive outreach to Chris Tremberth to ensure continued engagement despite Heidi's decline.</div></div>
+    </div>
+
+    <div class="action-group">
+      <h4>This Month</h4>
+      <div class="action-item"><span class="check"></span><div><strong>Close target:</strong> RF Contracting and EECF are the most likely near-term closes. Focus energy here.</div></div>
+      <div class="action-item"><span class="check"></span><div><strong>MCAO webinar prep:</strong> Develop presentation materials and association-specific landing page for April 16.</div></div>
+      <div class="action-item"><span class="check"></span><div><strong>HubSpot cleanup:</strong> Update deal amounts, stages, and close dates to improve pipeline visibility.</div></div>
+      <div class="action-item"><span class="check"></span><div><strong>Vortex launch:</strong> Execute launch event — generates a customer success story.</div></div>
+    </div>
+
+    <div class="action-group">
+      <h4>Strategic</h4>
+      <div class="action-item"><span class="check"></span><div><strong>Association outreach playbook:</strong> Codify the LDCA → MCAO pattern into a repeatable process. Begin outreach to 80+ identified associations.</div></div>
+      <div class="action-item"><span class="check"></span><div><strong>AI consulting as wedge:</strong> Formalize the "AI estimating consulting" offering as a lower-commitment entry point for prospects with existing tool contracts.</div></div>
+      <div class="action-item"><span class="check"></span><div><strong>Capacity planning:</strong> With 9 concurrent onboardings, evaluate whether a dedicated onboarding hire is needed to free up Corey/Ian for sales.</div></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Sources: Fathom (50+ meetings) &bull; Google Calendar (90-day history) &bull; Gmail (50+ sales emails) &bull; ATLAS (20+ RAG queries) &bull; HubSpot (50 deals)</p>
+    <p style="margin-top:8px;">Generated March 20, 2026 &bull; Appello Inc.</p>
+  </div>
+
+</div>
+
+</body>
+</html>
