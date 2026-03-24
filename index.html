@@ -169,10 +169,48 @@ tr:hover { background:var(--surface); }
 .source-footer { text-align:center; color:var(--text-3); font-size:12px; margin-top:48px; padding-top:24px; border-top:1px solid var(--border); }
 @media(max-width:1100px) { .kpi-bar { grid-template-columns:repeat(4,1fr); } .funnel-row { grid-template-columns:repeat(2,1fr); } .detail-grid { grid-template-columns:1fr; } .customer-bar { grid-template-columns:repeat(3,1fr); } }
 @media(max-width:700px) { .kpi-bar { grid-template-columns:repeat(2,1fr); } .shell { padding:16px; } .nav { gap:1px; } .nav-btn { padding:6px 10px; font-size:11px; } }
+#auth-gate { position:fixed; inset:0; z-index:9999; background:var(--bg); display:flex; align-items:center; justify-content:center; }
+#auth-gate.hidden { display:none; }
+.auth-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:40px 36px; width:100%; max-width:380px; text-align:center; }
+.auth-box h2 { font-size:22px; font-weight:700; margin-bottom:6px; letter-spacing:-.3px; }
+.auth-box h2 span { color:var(--text-3); font-weight:400; }
+.auth-box .auth-sub { font-size:13px; color:var(--text-3); margin-bottom:28px; }
+.auth-box input { width:100%; padding:12px 16px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-family:inherit; font-size:14px; outline:none; margin-bottom:14px; transition:border-color .15s; }
+.auth-box input:focus { border-color:var(--blue); }
+.auth-box button { width:100%; padding:12px; border:none; border-radius:var(--radius-sm); background:var(--blue); color:#fff; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; transition:opacity .15s; }
+.auth-box button:hover { opacity:.88; }
+.auth-box .auth-err { font-size:12px; color:var(--hot); margin-top:10px; min-height:18px; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body>
+<div id="auth-gate">
+  <div class="auth-box">
+    <h2>Appello <span>Commercial Update</span></h2>
+    <div class="auth-sub">Enter password to continue</div>
+    <input type="password" id="auth-input" placeholder="Password" autocomplete="off">
+    <button id="auth-btn">Continue</button>
+    <div class="auth-err" id="auth-err"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var HASH='7637f6f0281d98a911cab62d1623106e9450d2ed57996e97b79a50b3cb8d0a71';
+  var gate=document.getElementById('auth-gate');
+  var main=document.getElementById('main-content');
+  if(sessionStorage.getItem('authed')==='1'){gate.classList.add('hidden');return;}
+  function check(){
+    var pw=document.getElementById('auth-input').value;
+    crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw)).then(function(buf){
+      var hex=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+      if(hex===HASH){sessionStorage.setItem('authed','1');gate.classList.add('hidden');}
+      else{document.getElementById('auth-err').textContent='Incorrect password';}
+    });
+  }
+  document.getElementById('auth-btn').addEventListener('click',check);
+  document.getElementById('auth-input').addEventListener('keydown',function(e){if(e.key==='Enter')check();});
+})();
+</script>
 <div class="shell">
 <div class="hdr">
   <div><h1>Appello <span>Commercial Update</span></h1><div class="sub">Investor Dashboard &mdash; Pipeline, Strategy & Go-to-Market Intelligence</div></div>
